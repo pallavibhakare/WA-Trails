@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+    <head>
+        <title>WA Trails Information</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- CSS links-->
+        <link rel="stylesheet" href="css/main.css">  
+		<!-- Initionalize and load map-->
+		<script src="js/load_map.js"></script>		
+
+    </head>
+    <body>
+		<div class="container">
+			<div class="options-box">
+				<h1>Map out Your Trails</h1>
+				<div>
+				  <input id="show-trails" type="button" value="Show Trails">
+				  <input id="hide-trails" type="button" value="Hide Trails">
+				  <hr>
+				  <span class="text"> Draw a shape to search within it for trails!</span>
+				  <input id="toggle-drawing"  type="button" value="Drawing Tools(on/off)">
+				</div>
+				<hr>
+				<div>
+					<input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area">
+					<input id="zoom-to-area" type="button" value="Zoom">
+				</div>	
+				<hr>
+				
+				<div>
+					<span class="text">Search for nearby places</span>
+					<input id="places-search" type="text" placeholder="Ex. pizza delivery in Seattle">
+					<input id="go-places" type="button" value="Search">
+				</div>
+				
+				<div id="results-container">
+					<h3>Results</h3>
+					<select id="type" onchange="filterMarkers(this.value);">
+						<option value="">All Trail</option>
+						<option value="Rattlesnake Ledge Trail"> Rattlesnake Ledge Trail</option>
+						<option value="Little Si Trail">Little Si Trail</option>
+						<option value="Sunrise Rim Trail">Sunrise Rim Trail</option>
+						<option value="Trail of the Shadows">Trail of the Shadows</option>
+						<option value="Rampart Ridge Trail">Rampart Ridge Trail</option>
+						<option value="Nisqually Vista Trail">Nisqually Vista Trail</option>
+						<option value="Silver Falls Trail">Silver Falls Trail</option>
+						<option value="Naches Peak Loop Trail">Naches Peak Loop Trail</option>
+						<option value="Glacier Basin Trail">Glacier Basin Trail</option>
+						<option value="Burroughs Mountain Trail">Burroughs Mountain Trail</option>
+						<option value="Bench and Snow Lake Trail">Bench and Snow Lake Trail</option>
+						<option value="Annette Lake">Annette Lake</option>
+						<option value="Mount Washington Trail">Mount Washington Trail</option>
+						<option value="Sammamish River Trail">Sammamish River Trail</option>
+						<option value="Lake Twenty-Two Trail">Lake Twenty-Two Trail</option>
+						<option value="South Tiger Mountain Trail">South Tiger Mountain Trail</option>
+						<option value="Talus Rocks Loop">Talus Rocks Loop</option>
+						<option value="Preston Trail">Preston Trail</option>
+						<option value="Stans Overlook">Stans Overlook</option>
+						<option value="Chirico Trail to Poo-Poo Point">Chirico Trail to Poo-Poo Point</option>
+						<option value="Beckler Peak">Beckler Peak</option>
+						<option value="Heather Lake Trail">Heather Lake Trail</option>
+						<option value="Colonel Bob Trail">Colonel Bob Trail </option>
+						<option value="Wynoochee Lake Shore Trail">Wynoochee Lake Shore Trail</option>
+						<option value="Dry Cooper Creek Trail">Dry Cooper Creek Trail</option>
+						<option value="Church Creek - Satsop Lakes Trail">Church Creek - Satsop Lakes Trail</option>
+						<option value="Upper Lena Lake Trail">Upper Lena Lake Trail</option>
+						<option value="Hoh Lake Trail">Hoh Lake Trail</option>
+						<option value="Hurricane Hill Trail">Hurricane Hill Trail</option>
+						<option value="Mount Walker Trail">Mount Walker Trail</option>
+						<option value="Fragrance Lake Trail">Fragrance Lake Trail</option>
+						<option value="Lake Serene & Bridal Veil Falls Trailhead">Lake Serene & Bridal Veil Falls Trailhead</option>
+						<option value="Bench & Snow Lakes Trail">Bench & Snow Lakes Trail</option>
+					</select>	<!-- #results-list -->
+				</div><!-- #results-container -->
+				
+			</div>
+			<!--the map element will be used here and fill 100% of the screen-->
+			<div id="map"></div>
+		</div>
+       
+		<!-- Scriptline loads the API which loads the js definations when pages starts loading the browser;(here:async:Rest of the page render while js api is loaded);callback is executed when api is downloading		-->
+        <script async defer
+			src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing,places&key=AIzaSyBcvOdymskGfzJjSlnMH7YuQ65J6pgFwiQ&v3&callback=initMap">          
+        </script>
+
+    </body>
+</html>
