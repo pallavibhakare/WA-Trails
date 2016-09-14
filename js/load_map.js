@@ -7,6 +7,7 @@ var map;
 	  
       // This global polygon variable is to ensure only ONE polygon is rendered.
       var polygon = null;
+
 		// create placesmarkers array to use in multiple functions to have control
 		//over the number of places that show
 		var placeMarkers = [];
@@ -15,6 +16,7 @@ var map;
 	
 
       function initMap() {
+
 	
         // Create a styles array to use with the map.
         var styles = [
@@ -51,11 +53,13 @@ var map;
 
         // Constructor creates a new map - only center and zoom are required.
         map = new google.maps.Map(document.getElementById('map'), {
+
           center: userLatlng,
           zoom: 8,
           styles: styles,		 
           mapTypeControl: true		  
         });
+
 			
 		//This autocomplete is for use in the geocoder entry box.
 		var zoomAutoComplete = new google.maps.places.Autocomplete(
@@ -102,8 +106,11 @@ var map;
 		  {title: 'Bench & Snow Lakes Trail', location: {lat: 46.7866428, lng: -121.7798093}, desc:'EASY, 2.3 miles, 446 feet, Out & Back'}
         ];
 		geocoder = new google.maps.Geocoder();				  
+
         var largeInfowindow = new google.maps.InfoWindow();					
 	
+
+
 		
         // Initialize the drawing manager.
         var drawingManager = new google.maps.drawing.DrawingManager({
@@ -126,6 +133,7 @@ var map;
           // Get the position from the location array.
           var position = locations[i].location;
 		  var coordinates = new google.maps.LatLng(locations[i].location);  
+
           var title = locations[i].title;
 		  var desc = locations[i].desc;
 		  var category = locations[i].title;
@@ -137,9 +145,22 @@ var map;
             icon: defaultIcon,
 			desc: desc,	
 			coordinates:coordinates,	
+
 			 category: category,
             id: i
           });
+
+
+
+
+
+
+
+
+
+
+
+
 
 		   gmarkers1.push(marker);
 
@@ -170,12 +191,13 @@ var map;
 		
 		
         document.getElementById('show-trails').addEventListener('click', showListings);
-        document.getElementById('hide-trails').addEventListener('click', hideMarkers);
+        document.getElementById('hide-trails').addEventListener('click', hideListings);
         document.getElementById('toggle-drawing').addEventListener('click', function() {
           toggleDrawing(drawingManager);
         });
         document.getElementById('zoom-to-area').addEventListener('click', function() {
           zoomToArea();
+
         });
 		  
 		//listen for the event fired when the user selects a prediction from the picklist
@@ -196,7 +218,8 @@ var map;
 		  
           if (polygon) {
             polygon.setMap(null);
-            hideMarkers(markers);
+
+            hideListings(markers);
           }
           // Switching the drawing mode to the HAND (i.e., no longer drawing).
           drawingManager.setDrawingMode(null);
@@ -214,28 +237,30 @@ var map;
         });	
 
 		 
-	 /**
- * Function to filter markers by category
- */
+			 /**
+		 * Function to filter markers by category
+		 */
 
-filterMarkers = function (category) {
-    for (i = 0; i < locations.length; i++) {
-        marker_show = gmarkers1[i];
-        // If is same category or category not picked
-        if (marker_show.category == category || category.length === 0) {
-            marker_show.setVisible(true);
-        }
-        // Categories don't match 
-        else {
-            marker_show.setVisible(false);
-        }
-    }
-}
+		filterMarkers = function (category) {
+			for (i = 0; i < locations.length; i++) {
+				marker_show = gmarkers1[i];
+				// If is same category or category not picked
+				if (marker_show.category == category || category.length === 0) {
+					marker_show.setVisible(true);
+				}
+				// Categories don't match 
+				else {
+					marker_show.setVisible(false);
+				}
+			}
+		}
 
 
 		
     } //Mapinit()
 	
+
+
 
       // This function populates the infowindow when the marker is clicked. We'll only allow
       // one infowindow which will open at the marker that is clicked, and populate based
@@ -318,6 +343,12 @@ filterMarkers = function (category) {
         }
         map.fitBounds(bounds);
       }
+	  function hideListings() {
+
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+      }
       // This function will loop through the listings and hide them all.
       function hideMarkers(markers) {
         for (var i = 0; i < markers.length; i++) {
@@ -361,6 +392,7 @@ filterMarkers = function (category) {
           }
         }
       }
+
       // This function takes the input value in the find nearby area text input
       // locates it, and then zooms into that area. This is so that the user can
       // show all listings, then decide to focus on one area of the map.
@@ -377,11 +409,11 @@ filterMarkers = function (category) {
           // on it and zoom in
           geocoder.geocode(
             { address: address,
-              
+              componentRestrictions:{administrativeArea: 'WA' }
             }, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
-                map.setZoom(16);
+                map.setZoom(10);
               } else {
                 window.alert('We could not find that location - try entering a more' +
                     ' specific place.');
